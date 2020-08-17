@@ -1,0 +1,108 @@
+<!Doctype HTML>
+<HTML>
+    <head>
+        <link href="style.css" rel="stylesheet"/>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <div id="navigation">
+            <a href="#Employee">ADD EMPLOYEE</a> 
+            <a href="#Vehicle">ADD VEHICLE</a> 
+            <a href= "#Feedback">FEEDBACK</a> 
+            <a href="#Pricing">PRICING</a>
+        </div>
+
+        <!--cover image-->
+        <img src="https://www.drive2u.co.uk/wp-content/uploads/2017/09/Parking-Industry.jpg">
+        
+        <!--Employee form-->
+        <div id="Employee">
+            <img src="https://www.hrkatha.com/wp-content/uploads/2020/07/Untitled-design-3.png" class="image">
+            <h2>Employee details</h2>
+            <form id="EmployeeDetails">
+                <label for="Ename" >Full Name :</label>
+                <input type="text" id="Ename" placeholder="Enter Employee Name"><br><br>
+                <label for="gender">Gender :</label>
+                <input type="radio" id="gender">Male
+                <input type="radio" id="gender">Female<br><br>
+                <label for="Eemail">Email id :</label>
+                <input type="email" id="Eemail" placeholder="Enter Employee Email"><br><br>
+                <label for="password">Password :</label>
+                <input type="password" id="password" placeholder="Enter Password"><br><br>
+                <label for="confirmPassword">Confirm Password :</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password"><br><br>
+                <label for="contactNum">Contact Number :</label>
+                <input type="text" id="contactNum" placeholder="Enter Contact Number"><br><br>
+                <input type="submit" value="Submit"><br><br>
+            </form>
+        </div>
+
+        <!--Vehicle form-->
+        <div id="Vehicle">
+            <h2>Vehicle details</h2>
+            <img src="https://www.drivespark.com/img/2017/12/30-1514636845-most-trending-cars-bikes-in-2017-top-searched-cars-bikes-in-google.jpg" class="carImage">
+            <form id="VehicleDetails">
+                <label for="VCompany">Vehicle Make(Company) :</label>
+                <input type="text" id="VCompany" placeholder="Enter Vehicle Company"><br><br>
+                <label for="VModel">Vehicle Model :</label>
+                <input type="text" id="VModel" placeholder="Enter Vehicle Model"><br><br>
+                <label for="VType">Type :</label>
+                <input type="text" id="VType" placeholder="Enter Vehicle Type"><br><br>
+                <label for="VNumber">Vehicle Number :</label>
+                <input type="text" id="VNumber" placeholder="Enter Vehicle Number"><br><br>
+                <label for="empId">Employee Id :</label>
+                <input type="text" id="empId" placeholder="Enter Employee Id"><br><br>
+                <label for="identification">Identification :</label>
+                <textarea id="identification" placeholder="Enter Identification (color, mark, visible accessory)"></textarea><br><br>
+                <input type="submit" value="Submit"><br><br>
+            </form>
+        </div>
+
+        <!--Feedback form-->
+        <div id="Feedback">
+            <img src="https://lh3.googleusercontent.com/proxy/ToHEB2I3H2EWz62tPD-6nFhEGH2TPVB7xOqbXvNSkeWJlsCz35JMdgVzJtIjbrWCmXYdPYjagSRWhbvDc0RViDFtpes_ktKqaXAvTywHbADXYyM" class="image">
+            <h2>Get in touch</h2><br>
+            <form id="FeedbackForm">
+                <input type="text" id="name" placeholder="Your name"><br><br>
+                <input type="email" id="email" placeholder="Email"><br><br>
+                <input type="text" id="subject" placeholder="Subject"><br><br>
+                <textarea id="identification" placeholder="Message"></textarea><br><br><br>
+                <input type="submit" value="Send Feedback"><br><br><br>
+            </form>
+        </div>
+
+        <!--Parking prices-->
+        <div id="Pricing">
+            <h2>Parking Prices</h2>
+        
+            <div id="cycle" class="vehicle">
+                <h4>CYCLE</h4>
+                <p><b>$100</b><br>/month<br><br></p><br>
+                <small>
+                $5 daily<br>$100 monthly<br>$500 yearly<br><br>
+                </small>
+                <button>PURCHASE NOW</button>
+            </div>
+        
+            <div id="motorcycle" class="vehicle">
+                <h4>MOTOR CYCLE</h4>
+                <p><b>$200</b><br>/month<br><br></p><br>
+                <small>
+                $10 daily<br>$200 monthly<br>$1000 yearly<br><br>
+                </small>
+                <button>PURCHASE NOW</button>
+            </div>
+        
+            <div id="fourWheeler" class="vehicle">
+                <h4>FOUR WHEELERS</h4>
+                <p><b>$500</b><br>/month<br><br></p><br>
+                <small>
+                $20 daily<br>$500 monthly<br>$3500 yearly<br><br>
+                </small>
+            <button>PURCHASE NOW</button>
+            </div>
+        
+        </div>
+    </body>
+</HTML>
