@@ -1,0 +1,155 @@
+<!Doctype HTML>
+<HTML>
+    <head>
+        <link rel="icon" href="https://cars.tatamotors.com/images/performance-mobile-new.jpg" type="image/icon type">
+        <link href="style.css" rel="stylesheet"/>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <div id="navigation">
+            <a href="#Employee">ADD EMPLOYEE</a> 
+            <a href="#Vehicle">ADD VEHICLE</a> 
+            <a href= "#Feedback">FEEDBACK</a> 
+            <a href="#Pricing">PRICING</a>
+        </div>
+
+        <!--cover image-->
+        <img src="https://www.drive2u.co.uk/wp-content/uploads/2017/09/Parking-Industry.jpg">
+        
+        <!--Employee form-->
+        <div id="Employee">
+            <h2 onclick="showEmpForm()">Employee details</h2>
+            <div id="empErrors" class="field"></div>
+            <form id="EmployeeDetails" onsubmit="return validateForm()">
+                <div id="nameform" class="field">
+                    <label for="Ename" >Full Name :</label>
+                    <input type="text" name="Ename" id="Ename" placeholder="Enter Employee Name" required><br><br>
+                    <button type="button" onclick="nameValidation()">next</button>
+                </div>
+                <div id="genderform" class="field">
+                    <label for="gender">Gender :</label>
+                    <input type="radio" name="gender" required>Male
+                    <input type="radio" name="gender" required>Female<br><br>
+                    <button type="button" onclick="genderValidation()">next</button>
+                </div>
+                <div id="emailform" class="field">
+                    <label for="Eemail">Email id :</label>
+                    <input type="email" name="Eemail" id="Eemail" placeholder="Enter Employee Email" required><br><br>
+                    <button type="button" onclick="emailValidation()">next</button>
+                </div>
+                <div id="passwordform" class="field">
+                    <label for="password">Password :</label>
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required><br><br>
+                    <button type="button" onclick="passwordValidation()">next</button>
+                </div>
+                <div id="cpasswordform" class="field">
+                    <label for="confirmPassword">Confirm Password :</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required><br><br>
+                    <button type="button" onclick="confirmPasswordValidation()">next</button>
+                </div>
+                <div id="contactform" class="field">
+                    <label for="contactNum">Contact Number :</label>
+                    <input type="text" name="contactNum" id="contactNum" placeholder="Enter Contact Number" required><br><br>
+                    <button type="button" onclick="contactValidation()">Submit</button><br><br>
+                </div>
+                <div id="generatedEmpId" class="field"></div>
+            </form>
+        </div>
+
+        <!--Vehicle form-->
+        <div id="Vehicle">
+            <h2 onclick="showVehicleForm()">Vehicle details</h2>
+            <form id="VehicleDetails">
+                <div id="vcompanyform" class="field">
+                    <label for="VCompany">Vehicle Make(Company) :</label>
+                    <input type="text" name="VCompany" placeholder="Enter Vehicle Company" required><br><br>
+                    <button type="button" onclick="showNextVehicleField()">next</button>
+                </div>
+                <div id="vmodelform" class="field">
+                    <label for="VModel">Vehicle Model :</label>
+                    <input type="text" name="VModel" placeholder="Enter Vehicle Model" required><br><br>
+                    <button type="button" onclick="showNextVehicleField()">next</button>
+                </div>
+                <div id="vtypeform" class="field">
+                    <label for="VType">Which type of vehicle you have ? </label>
+                    <select name="VType" id="VType" required>
+                        <option value="cycle">Cycle</option>
+                        <option value="motorcycle" >Motor Cycle</option>
+                        <option value="fourwheeler" >Four Wheeler</option>
+                    </select>
+                    <br><br>
+                    <button type="button" onclick="showNextVehicleField()">next</button>
+                </div>
+                <div id="vnumberform" class="field">
+                    <label for="VNumber">Vehicle Number :</label>
+                    <input type="text" name="VNumber" placeholder="Enter Vehicle Number" required><br><br>
+                    <button type="button" onclick="showNextVehicleField()">next</button>
+                </div>
+                <div id="vempidform" class="field">
+                    <label for="empId">Employee Id :</label>
+                    <input type="text" name="empId" placeholder="Enter Employee Id" required><br><br>
+                    <button type="button" onclick="showNextVehicleField()">next</button>
+                </div>
+                <div id="videntityform" class="field">
+                    <label for="identification">Identification :</label>
+                    <textarea name="identification" placeholder="Enter Identification (color, mark, visible accessory)" required></textarea><br><br>
+                    <button type="button" onclick="showParkingPrices()">Submit</button><br><br>
+                </div>
+            </form>
+        </div>
+
+        <!--Feedback form-->
+        <div id="Feedback">
+            <img src="https://www.pinclipart.com/picdir/big/364-3642736_email-icon-large-envelope-transparent-png-stickpng-fastmail.png" id="msgImg">
+            <h2>Get in touch</h2>
+            <form id="FeedbackForm">
+                <input type="text" name="name" placeholder="Your name"><br><br>
+                <input type="email" name="email" placeholder="Email" required><br><br>
+                <input type="text" name="subject" placeholder="Subject" required><br><br>
+                <textarea name="identification" placeholder="Message" required></textarea><br><br>
+                <button type="button">Send Feedback</button><br><br>
+            </form>
+        </div>
+
+        <!--Parking prices-->
+        <div id="Pricing">
+            <h2>Parking Prices</h2>
+        
+            <div id="cycle" class="vehicle">
+                <h4>CYCLE</h4>
+                <p><b>$100</b><br>/month<br><br></p><br>
+                <small>
+                    <input type="radio" name="cprice" value="daily" required>$5 daily<br>
+                    <input type="radio" name="cprice" value="monthly" required>$100 monthly<br>
+                    <input type="radio" name="cprice" value="yearly" required>$500 yearly<br><br>
+                </small>
+                <button type="button" onclick="calculateAmount()">GET PASS</button>
+            </div>
+        
+            <div id="motorcycle" class="vehicle">
+                <h4>MOTOR CYCLE</h4>
+                <p><b>$200</b><br>/month<br><br></p><br>
+                <small>
+                    <input type="radio" name="mcprice" value="daily" required>$10 daily<br>
+                    <input type="radio" name="mcprice" value="monthly" required>$200 monthly<br>
+                    <input type="radio" name="mcprice" value="yearly" required>$1000 yearly<br><br>
+                </small>
+                <button type="button" onclick="calculateAmount()">GET PASS</button>
+            </div>
+        
+            <div id="fourWheeler" class="vehicle">
+                <h4>FOUR WHEELERS</h4>
+                <p><b>$500</b><br>/month<br><br></p><br>
+                <small>
+                    <input type="radio" name="fwprice" value="daily" required>$20 daily<br>
+                    <input type="radio" name="fwprice" value="monthly" required>$500 monthly<br>
+                    <input type="radio" name="fwprice" value="yearly" required>$3500 yearly<br><br>
+                </small>
+            <button type="button" onclick="calculateAmount()">GET PASS</button>
+            </div>
+            
+            <div id="totalamt" class="field"></div>
+        </div>
+    </body>
+</HTML>
