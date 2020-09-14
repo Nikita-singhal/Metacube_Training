@@ -1,0 +1,167 @@
+<apex:page controller="OnlineShoppingController">
+    <apex:form >
+        <!-- Purchase Order history -->
+        <apex:pageBlock title="Purchase Order history" id="orders_list">
+        	
+        	<apex:pageBlockTable value="{! purchaseOrders }" var="odr">
+            	<apex:column value="{! odr.Name }"/>
+            	<apex:column value="{! odr.Order_Price__c }"/>
+            	<apex:column value="{! odr.Order_Status__c }"/>
+                <apex:column value="{! odr.CreatedDate }"/>
+        	</apex:pageBlockTable>
+            
+            <!-- Pagination -->
+        	<!--First page-->
+            <apex:commandButton value="First" action="{! purchaseOrderFirst}" reRender="orders_list" disabled="{! NOT(purchaseOrderHasPrevious) }"/>
+        	&nbsp;
+        	<!-- Previous page -->
+            <apex:commandButton value="Previous" action="{! purchaseOrderPrevious}" reRender="orders_list" disabled="{! NOT(purchaseOrderHasPrevious) }"/>
+			&nbsp;
+			<!-- Next page -->
+            <apex:commandButton value="Next" action="{! purchaseOrderNext }" reRender="orders_list" disabled="{! NOT(purchaseOrderHasNext) }"/>
+			&nbsp;
+            <!--Last page-->
+            <apex:commandButton value="Last" action="{! purchaseOrderLast }" reRender="orders_list" disabled="{! NOT(purchaseOrderHasNext) }"/>
+ 			&nbsp;
+            <!-- Page Number-->
+            <apex:outputText value="{! purchaseOrderOffSet + 1 }-
+                                    {! if ((MOD(purchaseOrderResultSize, purchaseOrderPageSize) == 0) || (purchaseOrderPageNumber < CEILING(purchaseOrderResultSize / purchaseOrderPageSize)),
+                                    purchaseOrderPageSize * purchaseOrderPageNumber, ((purchaseOrderPageNumber - 1) * purchaseOrderPageSize) + MOD(purchaseOrderResultSize, purchaseOrderPageSize)) }
+                                    of {! purchaseOrderResultSize } "/><br/>
+
+       	</apex:pageBlock>
+        <apex:commandButton value="Add New Purchase" action="{! showProductList }" reRender="products_list"/>
+        <br/><br/>
+        
+        <!-- Product List -->
+        <apex:outputPanel id="products_list">
+        <apex:pageBlock title="Products" rendered="{! showProducts }">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <apex:inputText value="{! searchProductText }" >
+                        	<apex:actionSupport event="onkeyup" reRender="product_table"/>
+                        </apex:inputText>
+                    </td>
+                    <td align="right">
+                        <apex:commandButton value="Add To Cart" action="{! addToCart }" reRender="cart_items,products_list"/> 
+                    </td>
+                </tr>
+            </table>
+            <apex:outputPanel id="product_table">
+        	<apex:pageBlockTable value="{! products }" var="pdt" >
+                <apex:column headerValue="Select Products" rendered="{! IF(productResultSize > 0 , true , false) }">
+                    <apex:inputCheckbox value="{! itemsToBeAddedInCart[pdt.Id] }"/>
+                </apex:column>
+            	<apex:column value="{! pdt.Name }" rendered="{! IF(productResultSize > 0 , true , false) }"/>
+            	<apex:column value="{! pdt.ProductCode }" rendered="{! IF(productResultSize > 0 , true , false) }"/>
+            	<apex:column value="{! pdt.Description }" rendered="{! IF(productResultSize > 0 , true , false) }"/>
+                <apex:column value="{! pdt.Price_Per_Unit__c }" rendered="{! IF(productResultSize > 0 , true , false) }"/>
+            	<apex:column value="{! pdt.Quantity_Available__c }" rendered="{! IF(productResultSize > 0 , true , false) }"/>
+        	</apex:pageBlockTable>
+            <apex:outputPanel rendered="{! IF(productResultSize > 0 , false , true) }" style="color:red;display:block;">
+                No results found for searched text
+            </apex:outputPanel>
+            <!-- Pagination -->
+        	<!--First page-->
+            <apex:commandButton value="First" action="{! productFirst}" reRender="product_table" disabled="{! NOT(productHasPrevious) }"/>
+        	&nbsp;
+        	<!-- Previous page -->
+            <apex:commandButton value="Previous" action="{! productPrevious}" reRender="product_table" disabled="{! NOT(productHasPrevious) }"/>
+			&nbsp;
+			<!-- Next page -->
+            <apex:commandButton value="Next" action="{! productNext }" reRender="product_table" disabled="{! NOT(productHasNext) }"/>
+			&nbsp;
+            <!--Last page-->
+            <apex:commandButton value="Last" action="{! productLast }" reRender="product_table" disabled="{! NOT(productHasNext) }"/>
+ 			&nbsp;
+            <!-- Page Number-->
+            <apex:outputText value=" {! productOffSet + 1 }-
+                                    {! if ((MOD(productResultSize, productPageSize) == 0) || (productPageNumber < CEILING(productResultSize / productPageSize)),
+                                    productPageSize * productPageNumber, ((productPageNumber - 1) * productPageSize) + MOD(productResultSize, productPageSize)) }
+                                    of {! productResultSize }"/><br/>
+
+            </apex:outputPanel> 
+    	</apex:pageBlock>
+        </apex:outputPanel>
+        <br/><br/>
+        
+        <!-- Cart Items List -->
+        <apex:outputPanel id="cart_items">
+        <apex:pageBlock title="Cart Items" rendered="{! showCartItems }" id="cartItem_block">
+           
+        	<apex:pageBlockTable value="{! cartItems }" var="item" id="cartItem_table">
+                <apex:column headerValue="Product Name">
+                    <apex:outputField value="{! item.ProductName__c }"/>
+                </apex:column>
+            	<apex:column headerValue="Product Code">
+                    <apex:outputField value="{! item.ProductCode__c }"/>
+                </apex:column>
+                <apex:column headerValue="Price Per Unit">
+                    <apex:outputField value="{! item.Price_Per_Unit__c }"/>
+                </apex:column>
+                <apex:column headerValue="Quantity">
+                    <apex:inputField value="{! item.Quantity__c }">
+                        <apex:actionSupport action="{! changeQuantity }" event="onchange" reRender="cart_items, products_list, quantity_error">
+                        	<apex:param name="itemId" value="{! item.Product__c }"/>
+                        </apex:actionSupport>
+                    </apex:inputField>
+                </apex:column>
+                <apex:column >
+                    <apex:commandButton action="{! deleteItem }" reRender="cart_items,products_list" value="delete">
+                        <apex:param name="deleteSelectedItem" value="{! item.Product__c }"/>
+                    </apex:commandButton>
+                </apex:column>
+        	</apex:pageBlockTable>
+            <br/>
+            <apex:outputPanel id="quantity_error" rendered="{! checkQuantityValue }" style="color:red;display:block;">
+				Value Should be greater than 0 and must not exceed the available quantity
+			</apex:outputPanel>
+            <br/><br/>
+            <apex:commandButton value="Checkout" action="{! checkOut }" reRender="generated_order"/>
+            
+    	</apex:pageBlock>
+        </apex:outputPanel>
+        <br/><br/>
+        
+        <!-- Generated Order -->
+        <apex:outputPanel id="generated_order">
+        <apex:pageBlock title="place order" rendered="{! showOrderItems }">
+            
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        Invoice No. : <apex:outputText value="{! invoiceNumber }" />
+                    </td>
+                    <td align="right">
+                        Order Date : <apex:outputText value="{! orderDate }"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+        	<apex:pageBlockTable value="{! cartItems }" var="item">
+                <apex:column headerValue="Product Name">
+                    <apex:outputField value="{! item.ProductName__c }"/>
+                </apex:column>
+            	<apex:column headerValue="Product Code">
+                    <apex:outputField value="{! item.ProductCode__c }"/>
+                </apex:column>
+                <apex:column headerValue="Price Per Unit">
+                    <apex:outputField value="{! item.Price_Per_Unit__c }"/>
+                </apex:column>
+                <apex:column headerValue="Quantity">
+                	<apex:outputField value="{! item.Quantity__c }"/>
+                </apex:column>
+                <apex:column headerValue="Total">
+                    <apex:outputText value="{! item.Price_Per_Unit__c * item.Quantity__c }"/>
+                </apex:column>
+        	</apex:pageBlockTable>
+            <br/>
+            Total : <apex:outputText value="{! billAmount }"/>
+            <br/><br/>
+            <apex:commandButton value="Place Order" action="{! placeOrder }" reRender="orders_list, products_list, cart_items, generated_order"/>
+            
+    	</apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>
