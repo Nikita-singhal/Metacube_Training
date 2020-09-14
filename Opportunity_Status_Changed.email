@@ -1,0 +1,5 @@
+Hello {!Opportunity.OwnerFullName},
+
+The Opportunity Stage of Opportunity with name "{! Opportunity.Name }", has changed to  "{!Opportunity.StageName}".
+
+Thank You
