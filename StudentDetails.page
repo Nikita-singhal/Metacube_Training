@@ -1,0 +1,20 @@
+<apex:page controller="StudentDetailPDFController">
+    <apex:form >
+        <apex:pageBlock title="Student List">
+        	<apex:pageBlockSection title="Student details">
+        		<!-- Students List -->
+        		<apex:pageBlockTable value="{! students }" var="student">
+            		<apex:column value="{! student.Name }"/>
+            		<apex:column value="{! student.First_Name__c }"/>
+                	<apex:column value="{! student.Last_Name__c }"/>
+            		<apex:column value="{! student.Class__r.Name }"/>
+                	<apex:column headerValue="Generate PDF">
+                    	<apex:commandLink value="Generate PDF" action="{! attachPDF }">
+                      		<apex:param name="stdId" value="{! student.Id }"/>
+                    	</apex:commandLink>
+                	</apex:column>
+        		</apex:pageBlockTable>
+    		</apex:pageBlockSection>
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>

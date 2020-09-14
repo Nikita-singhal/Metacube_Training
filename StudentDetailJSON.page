@@ -1,0 +1,16 @@
+<apex:page standardController="Student__c" extensions="StudentDetailJSONController">
+    <apex:form >
+        <apex:pageBlock title="Student Details">
+        	<apex:pageBlockSection title="Student data">
+            	<apex:outputField value="{! Student__c.Name }"/><br/>
+        		<apex:outputField value="{! Student__c.First_Name__c }"/><br/>
+        		<apex:outputField value="{! Student__c.Last_Name__c }"/><br/>
+        		<apex:outputField value="{! Student__c.Class__r.Name }"/><br/>
+        	</apex:pageBlockSection>
+        	<apex:commandButton action="{! convertToJSON}" value="convert To JSON" id="theButton"/>
+            <apex:pageBlockSection title="Student data in JSON format">
+                <apex:outputText value="{! JSONString}"></apex:outputText>
+            </apex:pageBlockSection>
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>

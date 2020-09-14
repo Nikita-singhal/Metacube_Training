@@ -1,0 +1,29 @@
+<apex:page standardController="Opportunity" extensions="OpportunityBillToContactController">
+    <apex:form >
+    <apex:pageBlock title="Manager Account">
+        <apex:pageBlockSection title="Related Contacts Lists">
+            
+            <apex:outputField value="{! Opportunity.Manager__r.Name }"/><br/>
+            <!-- Related Contacts Lists -->
+            <!--<apex:pageBlockTable value="{! relatedContacts }" var="contact">
+      			<apex:column value="{!contact.Name}"/>
+      			<apex:column value="{!contact.Title}"/>
+                <apex:column headerValue="Select Contact">
+                    <apex:actionsupport action="{! getSelected}">  
+            			<input type ="radio"/> 
+             			<apex:param name="contactId" value="{!contact.Id}"/>
+  					</apex:actionsupport> 
+                </apex:column>
+   			</apex:pageBlockTable>-->
+            <apex:selectRadio value="{!contactToBeAdded}">
+                <apex:selectOptions value="{! Items}"/><br/>
+            </apex:selectRadio><p/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Save" action="{! saveContactToBill}"/>
+            <apex:commandButton value="Clear" action="{! clearContactToBill}"/>
+            <apex:commandButton value="Cancel" action="{! cancel}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

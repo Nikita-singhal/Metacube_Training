@@ -1,0 +1,13 @@
+<apex:page standardController="Student__c" renderAs="PDF">
+    <apex:pageBlock title="Student Details">
+        <hr/>
+        Student Id : &nbsp;<apex:outputField value="{! Student__c.Name }"/><br/><br/>
+        Student name : &nbsp;<apex:outputField value="{! Student__c.First_Name__c }"/>&nbsp;
+        <apex:outputField value="{! Student__c.Last_Name__c }"/><br/><br/>
+        Class : &nbsp;<apex:outputField value="{! Student__c.Class__r.Name }"/><br/><br/>
+        DOB : &nbsp;<apex:outputField value="{! Student__c.DOB__c }"/><br/><br/>
+        Sex : &nbsp;<apex:outputField value="{! Student__c.Sex__c }"/><br/><br/>
+        Email Id : &nbsp;<apex:outputField value="{! Student__c.Email__c }"/><br/>
+        <hr/>
+    </apex:pageBlock>
+</apex:page>
