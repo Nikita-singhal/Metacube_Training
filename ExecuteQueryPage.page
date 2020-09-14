@@ -1,0 +1,13 @@
+<apex:page controller="ExecuteQueryPageController">
+    <apex:form >
+    	<apex:pageBlock id="query_block">
+            <apex:pageMessages ></apex:pageMessages>
+            <br/>
+            <apex:inputText style="width : 500px; height : 40px;" value="{! query }"/>
+            <br/><br/>
+            <apex:commandButton value="Execute Query" action="{! passQuery }" rerender="query_block"/>
+            <br/><br/>
+            <c:ExecuteQuery rendered="{! showQueryResult }" queryString="{! query }"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

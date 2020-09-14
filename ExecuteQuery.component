@@ -1,0 +1,40 @@
+<apex:component controller="ExecuteQueryController">
+    
+    <apex:attribute name="queryString" type="String" required="true" description="query string to be executed" assignTo="{! queryStringToBeExecuted }"/>
+	
+    <apex:outputPanel id="queryResultBlock" >
+    
+        <apex:pageBlock id="componentBlock" rendered="{! showResult }">
+    		<!--Record Table-->
+        	<apex:pageBlockTable id="recordTable" value="{! resultFetched }" var="singleRecord">
+            	<apex:repeat value="{! fieldsOfRecord }" var="singleField">
+                	<apex:column >{! singleRecord[singleField]}
+                   		<apex:facet name="header">
+                        	<apex:commandLink value="{! singleField}{! IF(sortDirection='ASC','▼','▲') }" action="{! sortRecord}" reRender="recordTable">
+                             	<apex:param value="{! singleField}" name="column" assignTo="{! sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                </apex:repeat>
+    		</apex:pageBlockTable>
+        	<br/>
+            <apex:outputText rendered="{! noRecords}">No Rocords Found</apex:outputText>
+            <br/>
+        	<!--Pagination-->
+        	<table id="pagination">
+            	<tr>
+                    <td>
+                        <apex:commandButton value="First" action="{! first}" disabled="{! NOT(hasPrevious)}" reRender="queryResultBlock"/>&nbsp;&nbsp;
+                        <apex:commandButton value="Previous" action="{! previous}" disabled="{! NOT(hasPrevious)}" reRender="queryResultBlock"/>&nbsp;&nbsp;
+                        <apex:commandButton value="Next" action="{! next}" disabled="{! NOT(hasNext)}" reRender="queryResultBlock"/>&nbsp;&nbsp;
+                        <apex:commandButton value="Last" action="{! last}" disabled="{! NOT(hasNext)}" reRender="queryResultBlock"/>
+                    </td>
+                    <td>
+                        Page : &nbsp;<apex:outputText value="{! PageNumber} of {! CEILING(ResultSize/PageSize)}"/>
+                    </td>
+                </tr>    
+        	</table>
+    	</apex:pageBlock>
+        
+    </apex:outputPanel>
+</apex:component>
