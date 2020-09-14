@@ -1,0 +1,31 @@
+<apex:page >
+    <script src="/soap/ajax/45.0/connection.js" />
+    <script>
+        function deleteStudents(){
+        	const urlParams = new URLSearchParams (window.location.search);
+			var idsToDelete = urlParams.getAll("ids");
+        	sforce.connection.sessionId = "{!$Api.Session_ID}";
+        	alert('deleting '+idsToDelete.length+' record(s)');
+        	if(idsToDelete.length ) {
+                delResult = sforce.connection.deleteIds(idsToDelete);
+                if (delResult[0].getBoolean("success")) {
+        			alert('The Record(s) were Deleted Successfully.'); 
+      			}
+      			else{
+        			alert('The Record(s) Could Not be Deleted. Error Message: ' + delResult[0].errors.message);
+                }
+            }
+        	back();
+    	}
+    
+    	function back() {
+            window.location.href = "/a0B?fcf=00B2w000008Nxrj";
+            alert("Returning to list view");
+		}
+    </script>
+    <apex:form >
+    	<apex:commandButton value="Cancel" onclick="back()"/>
+  		&nbsp;&nbsp;
+        <apex:commandButton value="Continue" onclick="deleteStudents()"/>
+    </apex:form>
+</apex:page>

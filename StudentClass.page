@@ -1,0 +1,16 @@
+<apex:page standardController="Student__c">
+    <apex:pageBlock >
+        <table style="width: 100%">
+            <tr>
+            	<th>Student First Name</th>
+                <th>Student Last Name</th>
+                <th>Class Name</th>
+            </tr>
+            <tr>
+            	<td><apex:outputField value="{! Student__c.First_Name__c }"/></td>
+                <td><apex:outputField value="{! Student__c.Last_Name__c }"/></td>
+                <td><apex:outputField value="{! Student__c.Class__r.Name }"/></td>
+            </tr>
+        </table>    	
+    </apex:pageBlock>
+</apex:page>

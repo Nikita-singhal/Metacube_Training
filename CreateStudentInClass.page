@@ -1,0 +1,12 @@
+<apex:page standardController="Class__c" extensions="CreateStudentInClassController">
+    <apex:form >
+        <apex:pageBlock >
+        	<apex:pageBlockSection title="Create New Student">
+        		Student Name : &nbsp;<apex:inputText value="{! studentName }"/>
+                <br/>
+                <apex:commandButton value="Create New Student" action="{! createNewStudent }"/>
+        	</apex:pageBlockSection>
+    	</apex:pageBlock>
+    </apex:form>
+    
+</apex:page>
